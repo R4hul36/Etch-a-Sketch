@@ -14,11 +14,31 @@ const createGrid = function (gridSize = 16) {
 
     tileContainer.appendChild(tile)
 
-    //event listener
-    tile.addEventListener('mouseover', (e) => {
-      tile.style.backgroundColor = 'lightblue'
-    })
+   
+    changeTileColor(tile);
+    
   }
+}
+
+// change the color of tile on hover
+
+const changeTileColor = function (tile) {
+    let opacityValue = 30; 
+    let rgb = randomRGB()
+    
+    tile.addEventListener('mouseover', (e) => {
+        tile.style.backgroundColor = `rgba(${rgb}, ${opacityValue}%)`
+        if(opacityValue < 100){
+            opacityValue+=7    
+        }
+    })
+}
+
+const randomRGB = function () {
+    const r  = Math.floor(Math.random() * 256);
+    const g = Math.floor(Math.random() * 256)
+    const b = Math.floor(Math.random() * 256)
+    return  `${r}, ${g}, ${b}`
 }
 
 // change grid size
@@ -32,5 +52,22 @@ changeButton.addEventListener('click', (e) => {
   } while (size > 100 || size < 2)
   createGrid(size)
 })
+
+
+const resetBtn = document.querySelector("#reset");
+
+resetBtn.addEventListener("click", (e) => {
+  console.log("hello");
+  const grid = document.querySelector(".container")
+  const tiles = parent.children;
+
+  for(let i =0; i<tiles.length; i++) {
+    tiles[i].style.backgroundColor = "white";
+  }
+  
+
+})
+
+
 
 createGrid()
